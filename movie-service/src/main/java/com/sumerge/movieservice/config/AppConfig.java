@@ -1,5 +1,6 @@
 package com.sumerge.movieservice.config;
 
+import com.sumerge.movieservice.controller.MovieController;
 import com.utils.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

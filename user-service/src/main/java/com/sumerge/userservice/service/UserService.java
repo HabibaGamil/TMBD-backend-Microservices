@@ -61,12 +61,14 @@ public class UserService {
             throw new UserNotFoundException();
         }
         User user = userOptional.get();
+        user.setIsLoggedIn(true);
+        repo.save(user);
         authService.setUserStatus(user.getEmail(),true);
         return createResponse(user,"Login Successful");
 
 
     }
-    public Response loginByEmail(String email) {
+    public Response loginByEmail(String email, String refreshToken) {
 
         //check if user with such email exists
         Optional<User> userOptional = Optional.ofNullable(repo.findByEmail(email));
@@ -74,8 +76,10 @@ public class UserService {
             throw new UserNotFoundException();
         }
         User user = userOptional.get();
+        UserStatus userStatus = new UserStatus(user.getEmail(),true);
         authService.setUserStatus(user.getEmail(),true);
-        return createResponse(user,"Login Successful");
+        String accessToken = jwtService.generateToken(userStatus);
+        return new Response(accessToken,refreshToken,"Login Successful!");
 
     }
 

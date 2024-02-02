@@ -95,7 +95,7 @@ public class UserController {
                userService.logout(email);
               return ResponseEntity.badRequest().body(new Response("Refresh Token Expired"));
            }
-            Response res = userService.loginByEmail(email);
+            Response res = userService.loginByEmail(email,refreshToken);
             return ResponseEntity.ok(res);
 
         } catch (Exception exception){
@@ -103,8 +103,6 @@ public class UserController {
         }
 
     }
-
-
     private String extractRefreshToken(Cookie[] cookies, String requestBody)  {
         String refreshToken = null;
         if (cookies != null) {

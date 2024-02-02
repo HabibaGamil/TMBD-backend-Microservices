@@ -2,7 +2,7 @@ package com.sumerge.movieservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumerge.movieservice.exception.MovieNotFoundException;
-import com.sumerge.movieservice.model.Movie;
+import com.sumerge.movieservice.model.repository.Movie;
 import com.sumerge.movieservice.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -33,16 +33,16 @@ public class MovieService {
          Page<Movie> page = movieRepository.findAll(request);
          return page.getContent();
     }
-    public void populateDatabase(){
-        try{
-            Resource resource = new ClassPathResource("data.json");
-            File file = resource.getFile();
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<Movie> movies = Arrays.asList(objectMapper.readValue(file, Movie[].class));
-            movieRepository.saveAll(movies);
-        }catch(Exception exc){
-            exc.printStackTrace();
-        }
-    }
+//    public void populateDatabase(){
+//        try{
+//            Resource resource = new ClassPathResource("data.json");
+//            File file = resource.getFile();
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            List<Movie> movies = Arrays.asList(objectMapper.readValue(file, Movie[].class));
+//            movieRepository.saveAll(movies);
+//        }catch(Exception exc){
+//            exc.printStackTrace();
+//        }
+//    }
 
 }

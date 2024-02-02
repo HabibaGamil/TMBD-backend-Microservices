@@ -1,9 +1,9 @@
 package com.sumerge.movieservice.controller;
 
 
-import com.sumerge.movieservice.dto.Response;
+import com.sumerge.movieservice.model.dto.Response;
 import com.sumerge.movieservice.exception.MovieNotFoundException;
-import com.sumerge.movieservice.model.Movie;
+import com.sumerge.movieservice.model.repository.Movie;
 import com.sumerge.movieservice.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -56,10 +56,10 @@ public class MovieController {
         return ResponseEntity.ok(Response.success(movies));
 
     }
-    @PostMapping("/populate")
-    public String populateMoviesDatabase(){
-        movieService.populateDatabase();
-        return "database populated";
-    }
+//    @PostMapping("/populate")
+//    public String populateMoviesDatabase(){
+//        movieService.populateDatabase();
+//        return "database populated";
+//    }
 
 }

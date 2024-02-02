@@ -1,6 +1,6 @@
-package com.sumerge.movieservice.dto;
+package com.sumerge.movieservice.model.dto;
 
-import com.sumerge.movieservice.model.Movie;
+import com.sumerge.movieservice.model.repository.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
