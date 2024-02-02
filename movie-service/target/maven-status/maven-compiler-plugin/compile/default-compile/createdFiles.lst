@@ -1,0 +1,11 @@
+com\sumerge\movieservice\service\MovieService.class
+com\sumerge\movieservice\config\AppConfig.class
+com\sumerge\movieservice\dto\Response.class
+com\sumerge\movieservice\config\SecurityConfig.class
+com\sumerge\movieservice\config\AuthFilter.class
+com\sumerge\movieservice\controller\MovieController.class
+com\sumerge\movieservice\exception\MovieNotFoundException.class
+com\sumerge\movieservice\model\Movie.class
+com\sumerge\movieservice\repository\MovieRepository.class
+com\sumerge\movieservice\MovieServiceApplication.class
+com\sumerge\movieservice\config\AppConfig$1.class
