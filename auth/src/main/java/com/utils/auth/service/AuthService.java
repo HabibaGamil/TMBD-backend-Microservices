@@ -13,6 +13,7 @@ public class AuthService {
     JwtService jwtService;
 
     public void setUserStatus(String email, boolean status){
+
         userAuthService.setUserStatus(email,status);
     }
 
