@@ -15,7 +15,7 @@ public class Response {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    @JsonProperty("Message")
+    @JsonProperty("message")
     private String message;
 
     public Response(String message){

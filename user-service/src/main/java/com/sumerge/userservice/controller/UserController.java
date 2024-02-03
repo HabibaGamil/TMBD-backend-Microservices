@@ -25,18 +25,10 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    JwtService jwtService;
-    @Autowired
-    AuthService authService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @GetMapping("user")
-    public String ping(){
-      return "Hello from user server";
-    }
 
     @PostMapping("user/signup")
     public ResponseEntity<Response> signup( @Valid @RequestBody UserDto userDto){
@@ -64,15 +56,13 @@ public class UserController {
     @PostMapping("user/logout")
     public ResponseEntity<Response> logout(HttpServletRequest request,@RequestBody String requestBody){
         String refreshToken = extractRefreshToken(request.getCookies(),requestBody);
-        System.out.println("Refresh token"+refreshToken);
         if(refreshToken==null){
-            return ResponseEntity.badRequest().body(new Response("no token provided"));
+            return ResponseEntity.badRequest().body(new Response("No token provided"));
         }
         try{
             Response response = userService.logout(refreshToken);
             return  ResponseEntity.ok(response);
         }catch(Exception exc){
-            System.out.println("exception");
             exc.printStackTrace();
             return ResponseEntity.badRequest().body(new Response("Bad Request"));
         }
@@ -84,18 +74,10 @@ public class UserController {
         //Retrieving refresh cookie from request
         String refreshToken = extractRefreshToken(request.getCookies(),requestBody);
         if(refreshToken==null){
-            return ResponseEntity.badRequest().body(new Response("no token provided"));
+            return ResponseEntity.badRequest().body(new Response("No token provided"));
         }
-        //validate refresh token
         try {
-            boolean expired = jwtService.isTokenExpired(refreshToken);
-            String email = jwtService.extractUsername(refreshToken);
-
-           if(expired){
-               userService.logout(email);
-              return ResponseEntity.badRequest().body(new Response("Refresh Token Expired"));
-           }
-            Response res = userService.loginByEmail(email,refreshToken);
+            Response res = userService.refresh(refreshToken);
             return ResponseEntity.ok(res);
 
         } catch (Exception exception){
@@ -117,7 +99,7 @@ public class UserController {
             try {
                 jsonNode = objectMapper.readTree(requestBody);
                 return jsonNode.get("refreshToken").asText();
-            } catch (JsonProcessingException e) {
+            } catch (Exception e) {
                 return null;
             }
         }

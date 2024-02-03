@@ -3,7 +3,6 @@ package com.sumerge.movieservice.service;
 import com.sumerge.movieservice.TestSetup;
 import com.sumerge.movieservice.exception.MovieNotFoundException;
 import com.sumerge.movieservice.model.repository.Movie;
-import com.sumerge.movieservice.service.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,5 @@
 package com.sumerge.movieservice.auth;
 
-import com.sumerge.movieservice.TestSetup;
-import com.sumerge.movieservice.config.AuthFilter;
 import com.sumerge.movieservice.controller.MovieController;
 import com.sumerge.movieservice.service.MovieService;
 import com.utils.auth.model.UserStatus;
@@ -11,12 +9,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;

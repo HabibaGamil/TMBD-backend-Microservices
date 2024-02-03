@@ -29,7 +29,6 @@ public class TestSetup {
     public  MockMvc mockMvc;
     @Autowired
      WebApplicationContext webApplicationContext;
-
     @MockBean
     MovieRepository movieRepository;
 

@@ -3,6 +3,7 @@ package com.sumerge.userservice.service;
 import com.sumerge.userservice.mapper.Mapper;
 import com.sumerge.userservice.model.dto.Response;
 import com.sumerge.userservice.model.dto.UserDto;
+import com.utils.auth.exception.InvalidTokenException;
 import com.utils.auth.exception.UserAlreadyExistsException;
 import com.sumerge.userservice.model.entity.User;
 import com.sumerge.userservice.repository.UserRepository;
@@ -12,6 +13,7 @@ import com.utils.auth.model.UserStatus;
 import com.utils.auth.service.AuthService;
 import com.utils.auth.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -68,12 +70,12 @@ public class UserService {
 
 
     }
-    public Response loginByEmail(String email, String refreshToken) {
+    public Response loginByEmail(String email, String refreshToken) throws InvalidTokenException {
 
         //check if user with such email exists
         Optional<User> userOptional = Optional.ofNullable(repo.findByEmail(email));
         if(userOptional.isEmpty()){
-            throw new UserNotFoundException();
+            throw new InvalidTokenException("Invalid Refresh Token");
         }
         User user = userOptional.get();
         UserStatus userStatus = new UserStatus(user.getEmail(),true);
@@ -96,6 +98,18 @@ public class UserService {
         repo.save(user);
         authService.setUserStatus(user.getEmail(),false);
         return new Response("Logout successful!");
+
+    }
+
+    public Response refresh(String refreshToken) throws InvalidTokenException{
+        boolean expired = jwtService.isTokenExpired(refreshToken);
+        String email = jwtService.extractUsername(refreshToken);
+
+        if(expired){
+            this.logout(refreshToken);
+            throw new InvalidTokenException();
+        }
+        return this.loginByEmail(email,refreshToken);
 
     }
 

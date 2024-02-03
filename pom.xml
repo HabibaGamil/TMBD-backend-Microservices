@@ -46,10 +46,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+				<dependency>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+					<version>4.12</version> <!-- Use the version you prefer -->
+					<scope>test</scope>
+				</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -60,16 +73,16 @@
 			</plugin>
 		</plugins>
 	</build>
-<!--	<dependencyManagement>-->
-<!--	<dependencies>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-dependencies</artifactId>-->
-<!--			<type>pom</type>-->
-<!--			<version>2.4.0</version>-->
-<!--			<scope>import</scope>-->
-<!--		</dependency>-->
-<!--	</dependencies>-->
-<!--	</dependencyManagement>-->
+	<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-dependencies</artifactId>
+			<type>pom</type>
+			<version>2.4.0</version>
+			<scope>import</scope>
+		</dependency>
+	</dependencies>
+	</dependencyManagement>
 
 </project>

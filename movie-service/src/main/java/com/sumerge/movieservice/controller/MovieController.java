@@ -44,8 +44,10 @@ public class MovieController {
     public ResponseEntity<Response> getMoviePage(@RequestParam Map<String, String> queryParams) {
 
         int page = queryParams.containsKey("page") ? Integer.parseInt(queryParams.get("page")) : 0;
+
         String sortBy = queryParams.getOrDefault("sortBy", "voteAverage");
         String sortOrder = queryParams.getOrDefault("sortOrder", "desc");
+
         Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         PageRequest pageable = PageRequest.of(page, 20, sort);
 
