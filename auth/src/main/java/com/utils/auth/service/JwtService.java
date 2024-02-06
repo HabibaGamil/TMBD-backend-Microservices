@@ -30,8 +30,12 @@ public class JwtService {
     @Value("${app.security.jwt.refresh.expiration}")
     private long refreshExpiration;
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public String extractUsername(String token) throws InvalidTokenException{
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch(Exception exc){
+            throw new InvalidTokenException();
+        }
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -97,18 +101,27 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .setAllowedClockSkewSeconds(60000)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    private Claims extractAllClaims(String token) throws InvalidTokenException {
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getSignInKey())
+                    .setAllowedClockSkewSeconds(60000)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }catch(Exception exc){
+            throw new InvalidTokenException();
+        }
     }
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws InvalidTokenException {
+        try {
+            final Claims claims = extractAllClaims(token);
+            return claimsResolver.apply(claims);
+        }catch (Exception exc){
+            throw new InvalidTokenException();
+        }
+
     }
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);

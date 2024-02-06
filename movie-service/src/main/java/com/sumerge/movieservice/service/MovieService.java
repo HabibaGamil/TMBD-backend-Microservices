@@ -1,6 +1,7 @@
 package com.sumerge.movieservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sumerge.movieservice.exception.InvalidPageException;
 import com.sumerge.movieservice.exception.MovieNotFoundException;
 import com.sumerge.movieservice.model.repository.Movie;
 import com.sumerge.movieservice.repository.MovieRepository;
@@ -29,10 +30,15 @@ public class MovieService {
         }
         return movieOptional.get();
     }
-    public List<Movie> getMoviePage(PageRequest request){
+    public List<Movie> getMoviePage(PageRequest request) throws InvalidPageException{
          Page<Movie> page = movieRepository.findAll(request);
+         if(page.getContent().size()==0){
+             throw new InvalidPageException();
+         }
          return page.getContent();
     }
+
+
 //    public void populateDatabase(){
 //        try{
 //            Resource resource = new ClassPathResource("data.json");
